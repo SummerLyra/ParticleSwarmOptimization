@@ -15,7 +15,7 @@ public class ParticleXYSet
     private ArrayList<ParticleXY> pSet = new ArrayList<>(); //粒子集
 
     //初始化粒子集，particleNum为粒子数量
-    public ParticleXYSet(int particleNum)
+    public ParticleXYSet(int particleNum, double dx, double ux, double dy, double uy)
     {
         gBestX = 0.0;
         gBestY = 0.0;
@@ -23,7 +23,7 @@ public class ParticleXYSet
 
         for (int i = 0; i < particleNum; i++)
         {
-            pSet.add(new ParticleXY());
+            pSet.add(new ParticleXY(dx, ux, dy, uy));
         }
     }
 
