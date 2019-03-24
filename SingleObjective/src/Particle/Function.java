@@ -6,6 +6,10 @@ import static java.lang.Math.*;
 
 class Function
 {
+    static final double w = 1; //惯性权重因子
+    static final double c1 = 2; //个体认知常数
+    static final double c2 = 2; //社会经验常数
+
     static double func1(ArrayList<Double> x, double A, int n)
     {
         double p1 = A * n;

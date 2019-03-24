@@ -7,6 +7,11 @@ import static Particle.Function.*;
 
 public class ParticleXYSet
 {
+    private double lowerBoundX; //x下界
+    private double upperBoundX; //x上界
+    private double lowerBoundY; //y下界
+    private double upperBoundY; //y上界
+
     //全局最优
     private double gBestX;
     private double gBestY;
@@ -14,16 +19,21 @@ public class ParticleXYSet
 
     private ArrayList<ParticleXY> pSet = new ArrayList<>(); //粒子集
 
-    //初始化粒子集，particleNum为粒子数量
-    public ParticleXYSet(int particleNum, double dx, double ux, double dy, double uy)
+    //初始化粒子集，particleNum为粒子数量，(initX,initY)为迭代初始点
+    public ParticleXYSet(int particleNum, double lx, double ux, double ly, double uy, double initX, double initY)
     {
-        gBestX = 0.0;
-        gBestY = 0.0;
+        lowerBoundX = lx;
+        upperBoundX = ux;
+        lowerBoundY = ly;
+        upperBoundY = uy;
+
+        gBestX = initX;
+        gBestY = initY;
         gBestFx = func5(gBestX, gBestY);
 
         for (int i = 0; i < particleNum; i++)
         {
-            pSet.add(new ParticleXY(dx, ux, dy, uy));
+            pSet.add(new ParticleXY(lowerBoundX, upperBoundX, lowerBoundY, upperBoundY));
         }
     }
 
@@ -33,21 +43,21 @@ public class ParticleXYSet
         for (ParticleXY p : pSet)
         {
             //限制粒子的位置范围
-            if (p.x < -4.5)
+            if (p.x < lowerBoundX)
             {
-                p.x = -4.5;
+                p.x = lowerBoundX;
             }
-            if (p.x > 4.5)
+            if (p.x > upperBoundX)
             {
-                p.x = 4.5;
+                p.x = upperBoundX;
             }
-            if (p.y < -4.5)
+            if (p.y < lowerBoundY)
             {
-                p.y = -4.5;
+                p.y = lowerBoundY;
             }
-            if (p.y > 4.5)
+            if (p.y > upperBoundY)
             {
-                p.y = 4.5;
+                p.y = upperBoundY;
             }
 
             p.fx = func5(p.x, p.y);
@@ -85,9 +95,6 @@ public class ParticleXYSet
     {
         for (ParticleXY p : pSet)
         {
-            final double w = 1; //惯性权重因子
-            final double c1 = 2; //个体认知常数
-            final double c2 = 2; //社会经验常数
             double r1 = new Random().nextDouble();
             double r2 = new Random().nextDouble();
             p.vx = w * p.vx + c1 * r1 * (p.pBestX - p.x) + c2 * r2 * (gBestX - p.x);

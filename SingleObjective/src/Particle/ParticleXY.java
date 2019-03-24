@@ -20,18 +20,18 @@ class ParticleXY
     double pBestY;
     double pBestFx;
 
-    //x∈[dx,ux),y∈[dy,uy)
-    ParticleXY(double dx, double ux, double dy, double uy)
+    //x∈[lx,ux),y∈[ly,uy)
+    ParticleXY(double lx, double ux, double ly, double uy)
     {
-        x = new Random().nextDouble() * (ux - dx) + dx;
-        y = new Random().nextDouble() * (uy - dy) + dy;
+        x = new Random().nextDouble() * (ux - lx) + lx;
+        y = new Random().nextDouble() * (uy - ly) + ly;
         fx = func5(x, y);
 
-        vx = (new Random().nextDouble() * (ux - dx) + dx) * 0.2;
-        vy = (new Random().nextDouble() * (uy - dy) + dy) * 0.2;
+        vx = (new Random().nextDouble() * (ux - lx) + lx) * 0.2;
+        vy = (new Random().nextDouble() * (uy - ly) + ly) * 0.2;
 
-        pBestX = 0.0;
-        pBestY = 0.0;
+        pBestX = new Random().nextDouble() * (ux - lx) + lx;
+        pBestY = new Random().nextDouble() * (uy - ly) + ly;
         pBestFx = func5(pBestX, pBestY);
     }
 }

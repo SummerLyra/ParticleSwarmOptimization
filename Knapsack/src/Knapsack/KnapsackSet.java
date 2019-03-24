@@ -73,6 +73,9 @@ public class KnapsackSet
     {
         for (Knapsack k : kSet)
         {
+            k.totalWeight = 0;
+            k.totalValue = 0;
+
             for (int i = 0; i < amount; i++)
             {
                 //限制粒子的位置范围
