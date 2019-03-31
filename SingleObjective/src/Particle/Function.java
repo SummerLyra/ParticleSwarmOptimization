@@ -107,6 +107,7 @@ class Function
         return -0.0001 * pow(abs(sin(x) * sin(y) * pow(E, abs(100 - sqrt(x * x + y * y) / PI))) + 1, 0.1);
     }
 
+    //for function 1, 3, 4, 7
     static double calculateXS(int funcNum, ArrayList<Double> x)
     {
         switch (funcNum)
@@ -124,6 +125,7 @@ class Function
         }
     }
 
+    //for function 2, 5, 6, 8, 9, 10
     static double calculateXY(int funcNum, double x, double y)
     {
         switch (funcNum)

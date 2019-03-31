@@ -8,7 +8,7 @@ public class Main
     public static void main(String[] args)
     {
         double initX = 0.0, initY = 0.0;
-        ArrayList<Double> initXA = new ArrayList<>();
+        ArrayList<Double> initXS = new ArrayList<>();
         ParticleXYSet pys;
         ParticleXSSet pss;
 
@@ -29,15 +29,19 @@ public class Main
             System.exit(-1);
         }
 
+        //粒子集大小
         System.out.println("Please input the quantity of particles:");
         int particleNum = new Scanner(System.in).nextInt();
 
+        //迭代次数
         System.out.println("Please input the times of iteration:");
         int iterTime = new Scanner(System.in).nextInt();
 
+        //for function 1, 3, 4, 7
         if (funcNum == 1 | funcNum == 3 | funcNum == 4 | funcNum == 7)
         {
             int dim = 10;
+            //for function 7
             if (funcNum == 7)
             {
                 System.out.println("Please input the dimension of x0 array:");
@@ -48,9 +52,10 @@ public class Main
             double x0 = new Scanner(System.in).nextDouble();
             for (int i = 0; i < dim; i++)
             {
-                initXA.add(x0);
+                initXS.add(x0);
             }
         }
+        //for function 2, 5, 6, 8, 9, 10
         else
         {
             System.out.println("Please input x0:");
@@ -63,7 +68,7 @@ public class Main
         switch (funcNum)
         {
             case 1:
-                pss = new ParticleXSSet(1, particleNum, -5.12, 5.12, initXA);
+                pss = new ParticleXSSet(1, particleNum, -5.12, 5.12, initXS);
                 pss.iterate(iterTime);
                 break;
             case 2:
@@ -71,11 +76,11 @@ public class Main
                 pys.iterate(iterTime);
                 break;
             case 3:
-                pss = new ParticleXSSet(3, particleNum, -100.0, 100.0, initXA);
+                pss = new ParticleXSSet(3, particleNum, -100.0, 100.0, initXS);
                 pss.iterate(iterTime);
                 break;
             case 4:
-                pss = new ParticleXSSet(4, particleNum, -30.0, 30.0, initXA);
+                pss = new ParticleXSSet(4, particleNum, -30.0, 30.0, initXS);
                 pss.iterate(iterTime);
                 break;
             case 5:
@@ -87,7 +92,7 @@ public class Main
                 pys.iterate(iterTime);
                 break;
             case 7:
-                pss = new ParticleXSSet(7, particleNum, -5.0, 5.0, initXA);
+                pss = new ParticleXSSet(7, particleNum, -5.0, 5.0, initXS);
                 pss.iterate(iterTime);
                 break;
             case 8:

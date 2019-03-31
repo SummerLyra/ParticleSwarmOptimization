@@ -18,19 +18,19 @@ public class ParticleXSSet
 
     private ArrayList<ParticleXS> pSet = new ArrayList<>(); //粒子集
 
-    //初始化粒子集，particleNum为粒子数量，initX为迭代初始数组
-    public ParticleXSSet(int fn, int particleNum, double lb, double ub, ArrayList<Double> initXA)
+    //初始化粒子集，particleNum为粒子数量，initXS为迭代初始数组
+    public ParticleXSSet(int fn, int particleNum, double lb, double ub, ArrayList<Double> initXS)
     {
         funcNum = fn;
-        dim = initXA.size();
+        dim = initXS.size();
         lowerBound = lb;
         upperBound = ub;
 
         for (int i = 0; i < dim; i++)
         {
-            gBestX.add(initXA.get(i));
+            gBestX.add(initXS.get(i));
         }
-        gBestFx = calculateXS(funcNum, initXA);
+        gBestFx = calculateXS(funcNum, initXS);
 
         for (int i = 0; i < particleNum; i++)
         {
