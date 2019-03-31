@@ -7,6 +7,7 @@ import static Particle.Function.*;
 
 public class ParticleXSSet
 {
+    private int funcNum; //函数编号
     private int dim; //x维度
     private double lowerBound; //x下界
     private double upperBound; //x上界
@@ -18,21 +19,22 @@ public class ParticleXSSet
     private ArrayList<ParticleXS> pSet = new ArrayList<>(); //粒子集
 
     //初始化粒子集，particleNum为粒子数量，initX为迭代初始数组
-    public ParticleXSSet(int particleNum, int dm, double lb, double ub, ArrayList<Double> initX)
+    public ParticleXSSet(int fn, int particleNum, double lb, double ub, ArrayList<Double> initXA)
     {
-        dim = dm;
+        funcNum = fn;
+        dim = initXA.size();
         lowerBound = lb;
         upperBound = ub;
 
         for (int i = 0; i < dim; i++)
         {
-            gBestX.add(initX.get(i));
+            gBestX.add(initXA.get(i));
         }
-        gBestFx = func1(gBestX, 10, dim);
+        gBestFx = calculateXS(funcNum, initXA);
 
         for (int i = 0; i < particleNum; i++)
         {
-            pSet.add(new ParticleXS(dim, lowerBound, upperBound));
+            pSet.add(new ParticleXS(funcNum, dim, lowerBound, upperBound));
         }
     }
 
@@ -54,7 +56,7 @@ public class ParticleXSSet
                 }
             }
 
-            p.fx = func1(p.x, 10, dim);
+            p.fx = calculateXS(funcNum, p.x);
         }
     }
 
@@ -122,6 +124,7 @@ public class ParticleXSSet
             evaluate();
             findBetter();
             update();
+            System.out.print(i + " ");
             output();
         }
     }

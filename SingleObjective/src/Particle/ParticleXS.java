@@ -19,7 +19,7 @@ class ParticleXS
     double pBestFx;
 
     //xi∈[lb,ub)
-    ParticleXS(int dim, double lb, double ub)
+    ParticleXS(int fn, int dim, double lb, double ub)
     {
         for (int i = 0; i < dim; i++)
         {
@@ -27,7 +27,7 @@ class ParticleXS
             v.add((new Random().nextDouble() * (ub - lb) + lb) * 0.2);
             pBestX.add(new Random().nextDouble() * (ub - lb) + lb);
         }
-        fx = func1(x, 10, dim);
-        pBestFx = func1(pBestX, 10, dim);
+        fx = calculateXS(fn, x);
+        pBestFx = calculateXS(fn, pBestX);
     }
 }
