@@ -5,21 +5,48 @@ import java.util.Random;
 
 import static Particle.Function.*;
 
+/**
+ * 适用于二元自变量的粒子集类
+ */
 public class ParticleXYSet {
-    private int funcNum; //函数编号
-    private double lowerBoundX; //x下界
-    private double upperBoundX; //x上界
-    private double lowerBoundY; //y下界
-    private double upperBoundY; //y上界
+    /**
+     * 计算用函数编号
+     */
+    private int funcNum;
 
-    //全局最优
+    /**
+     * x∈[lowerBoundX,upperBoundX)
+     */
+    private double lowerBoundX;
+    private double upperBoundX;
+
+    /**
+     * y∈[lowerBoundY,upperBoundY)
+     */
+    private double lowerBoundY;
+    private double upperBoundY;
+
+    /**
+     * 全局最优
+     */
     private double gBestX;
     private double gBestY;
     private double gBestFx;
 
-    private ArrayList<ParticleXY> pSet = new ArrayList<>(); //粒子集
+    /**
+     * 粒子集
+     */
+    private ArrayList<ParticleXY> pSet = new ArrayList<>();
 
-    //初始化粒子集，particleNum为粒子数量，(initX,initY)为迭代初始点
+    /**
+     * 初始化粒子集
+     * x∈[lx,ux), y∈[ly,uy)
+     *
+     * @param fn          计算用函数编号
+     * @param particleNum 粒子数量
+     * @param initX       迭代初始x
+     * @param initY       迭代初始y
+     */
     public ParticleXYSet(int fn, int particleNum, double lx, double ux, double ly, double uy, double initX, double initY) {
         funcNum = fn;
         lowerBoundX = lx;
@@ -36,10 +63,12 @@ public class ParticleXYSet {
         }
     }
 
-    //计算粒子适应值
+    /**
+     * 计算粒子适应值
+     */
     private void evaluate() {
         for (ParticleXY p : pSet) {
-            //限制粒子的位置范围
+            // 限制粒子的位置范围
             if (p.x < lowerBoundX) {
                 p.x = lowerBoundX;
             }
@@ -57,10 +86,12 @@ public class ParticleXYSet {
         }
     }
 
-    //判断粒子价值是否为个体或全局最优
+    /**
+     * 判断粒子价值是否为个体或全局最优
+     */
     private void findBetter() {
         for (ParticleXY p : pSet) {
-            //全局最优
+            // 全局最优
             if (p.fx < gBestFx) {
                 gBestX = p.x;
                 gBestY = p.y;
@@ -70,7 +101,7 @@ public class ParticleXYSet {
                 p.pBestFx = p.fx;
             }
 
-            //非全局最优的个体最优
+            // 非全局最优的个体最优
             else if (p.fx < p.pBestFx) {
                 p.pBestX = p.x;
                 p.pBestY = p.y;
@@ -79,23 +110,32 @@ public class ParticleXYSet {
         }
     }
 
-    //更新粒子速度和位置
+    /**
+     * 更新粒子速度和位置
+     */
     private void update() {
         for (ParticleXY p : pSet) {
             double r1 = new Random().nextDouble();
             double r2 = new Random().nextDouble();
-            p.vx = w * p.vx + c1 * r1 * (p.pBestX - p.x) + c2 * r2 * (gBestX - p.x);
-            p.vy = w * p.vy + c1 * r1 * (p.pBestY - p.y) + c2 * r2 * (gBestY - p.y);
+            p.vx = W * p.vx + C1 * r1 * (p.pBestX - p.x) + C2 * r2 * (gBestX - p.x);
+            p.vy = W * p.vy + C1 * r1 * (p.pBestY - p.y) + C2 * r2 * (gBestY - p.y);
             p.x += p.vx;
             p.y += p.vy;
         }
     }
 
+    /**
+     * 输出
+     */
     private void output() {
         System.out.println("x = " + gBestX + " y = " + gBestY + " f(x,y) = " + gBestFx);
     }
 
-    //迭代计算，iterTime为迭代次数
+    /**
+     * 迭代计算
+     *
+     * @param iterTime 迭代次数
+     */
     public void iterate(int iterTime) {
         for (int i = 0; i < iterTime; i++) {
             evaluate();
