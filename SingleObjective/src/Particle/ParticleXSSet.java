@@ -5,8 +5,7 @@ import java.util.Random;
 
 import static Particle.Function.*;
 
-public class ParticleXSSet
-{
+public class ParticleXSSet {
     private int funcNum; //函数编号
     private int dim; //x维度
     private double lowerBound; //x下界
@@ -19,39 +18,31 @@ public class ParticleXSSet
     private ArrayList<ParticleXS> pSet = new ArrayList<>(); //粒子集
 
     //初始化粒子集，particleNum为粒子数量，initXS为迭代初始数组
-    public ParticleXSSet(int fn, int particleNum, double lb, double ub, ArrayList<Double> initXS)
-    {
+    public ParticleXSSet(int fn, int particleNum, double lb, double ub, ArrayList<Double> initXS) {
         funcNum = fn;
         dim = initXS.size();
         lowerBound = lb;
         upperBound = ub;
 
-        for (int i = 0; i < dim; i++)
-        {
+        for (int i = 0; i < dim; i++) {
             gBestX.add(initXS.get(i));
         }
         gBestFx = calculateXS(funcNum, initXS);
 
-        for (int i = 0; i < particleNum; i++)
-        {
+        for (int i = 0; i < particleNum; i++) {
             pSet.add(new ParticleXS(funcNum, dim, lowerBound, upperBound));
         }
     }
 
     //计算粒子适应值
-    private void evaluate()
-    {
-        for (ParticleXS p : pSet)
-        {
+    private void evaluate() {
+        for (ParticleXS p : pSet) {
             //限制粒子的位置范围
-            for (int i = 0; i < dim; i++)
-            {
-                if (p.x.get(i) < lowerBound)
-                {
+            for (int i = 0; i < dim; i++) {
+                if (p.x.get(i) < lowerBound) {
                     p.x.set(i, lowerBound);
                 }
-                if (p.x.get(i) > upperBound)
-                {
+                if (p.x.get(i) > upperBound) {
                     p.x.set(i, upperBound);
                 }
             }
@@ -61,15 +52,11 @@ public class ParticleXSSet
     }
 
     //判断粒子价值是否为个体或全局最优
-    private void findBetter()
-    {
-        for (ParticleXS p : pSet)
-        {
+    private void findBetter() {
+        for (ParticleXS p : pSet) {
             //全局最优
-            if (p.fx < gBestFx)
-            {
-                for (int i = 0; i < dim; i++)
-                {
+            if (p.fx < gBestFx) {
+                for (int i = 0; i < dim; i++) {
                     gBestX.set(i, p.x.get(i));
                     p.pBestX.set(i, p.x.get(i));
                 }
@@ -78,10 +65,8 @@ public class ParticleXSSet
             }
 
             //非全局最优的个体最优
-            else if (p.fx < p.pBestFx)
-            {
-                for (int i = 0; i < dim; i++)
-                {
+            else if (p.fx < p.pBestFx) {
+                for (int i = 0; i < dim; i++) {
                     p.pBestX.set(i, p.x.get(i));
                 }
                 p.pBestFx = p.fx;
@@ -90,12 +75,9 @@ public class ParticleXSSet
     }
 
     //更新粒子速度和位置
-    private void update()
-    {
-        for (ParticleXS p : pSet)
-        {
-            for (int i = 0; i < dim; i++)
-            {
+    private void update() {
+        for (ParticleXS p : pSet) {
+            for (int i = 0; i < dim; i++) {
                 double r1 = new Random().nextDouble();
                 double r2 = new Random().nextDouble();
                 double vt = w * p.v.get(i) + c1 * r1 * (p.pBestX.get(i) - p.x.get(i)) + c2 * r2 * (gBestX.get(i) - p.x.get(i));
@@ -106,10 +88,8 @@ public class ParticleXSSet
         }
     }
 
-    private void output()
-    {
-        for (int i = 0; i < dim; i++)
-        {
+    private void output() {
+        for (int i = 0; i < dim; i++) {
             int index = i + 1;
             System.out.print("x" + index + " = " + gBestX.get(i) + " ");
         }
@@ -117,10 +97,8 @@ public class ParticleXSSet
     }
 
     //迭代计算，iterTime为迭代次数
-    public void iterate(int iterTime)
-    {
-        for (int i = 0; i < iterTime; i++)
-        {
+    public void iterate(int iterTime) {
+        for (int i = 0; i < iterTime; i++) {
             evaluate();
             findBetter();
             update();

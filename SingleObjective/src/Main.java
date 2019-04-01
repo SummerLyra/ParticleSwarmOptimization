@@ -3,10 +3,8 @@ import Particle.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main
-{
-    public static void main(String[] args)
-    {
+public class Main {
+    public static void main(String[] args) {
         double initX = 0.0, initY = 0.0;
         ArrayList<Double> initXS = new ArrayList<>();
         ParticleXYSet pys;
@@ -24,8 +22,7 @@ public class Main
         System.out.println("9  Himmelblau's function");
         System.out.println("10 Cross-in-tray function");
         int funcNum = new Scanner(System.in).nextInt();
-        if (funcNum < 1 | funcNum > 10)
-        {
+        if (funcNum < 1 | funcNum > 10) {
             System.exit(-1);
         }
 
@@ -38,26 +35,22 @@ public class Main
         int iterTime = new Scanner(System.in).nextInt();
 
         //for function 1, 3, 4, 7
-        if (funcNum == 1 | funcNum == 3 | funcNum == 4 | funcNum == 7)
-        {
+        if (funcNum == 1 | funcNum == 3 | funcNum == 4 | funcNum == 7) {
             int dim = 10;
             //for function 7
-            if (funcNum == 7)
-            {
+            if (funcNum == 7) {
                 System.out.println("Please input the dimension of x0 array:");
                 dim = new Scanner(System.in).nextInt();
             }
 
             System.out.println("Please input x0:");
             double x0 = new Scanner(System.in).nextDouble();
-            for (int i = 0; i < dim; i++)
-            {
+            for (int i = 0; i < dim; i++) {
                 initXS.add(x0);
             }
         }
         //for function 2, 5, 6, 8, 9, 10
-        else
-        {
+        else {
             System.out.println("Please input x0:");
             initX = new Scanner(System.in).nextDouble();
 
@@ -65,8 +58,7 @@ public class Main
             initY = new Scanner(System.in).nextDouble();
         }
 
-        switch (funcNum)
-        {
+        switch (funcNum) {
             case 1:
                 pss = new ParticleXSSet(1, particleNum, -5.12, 5.12, initXS);
                 pss.iterate(iterTime);
@@ -107,6 +99,7 @@ public class Main
                 pys = new ParticleXYSet(10, particleNum, -10.0, 10.0, -10.0, 10.0, initX, initY);
                 pys.iterate(iterTime);
                 break;
+            default:
         }
     }
 }

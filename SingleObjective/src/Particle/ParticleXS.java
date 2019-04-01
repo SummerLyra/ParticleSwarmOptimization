@@ -5,8 +5,7 @@ import java.util.Random;
 
 import static Particle.Function.*;
 
-class ParticleXS
-{
+class ParticleXS {
     //粒子位置
     ArrayList<Double> x = new ArrayList<>();
     double fx;
@@ -19,10 +18,8 @@ class ParticleXS
     double pBestFx;
 
     //xi∈[lb,ub)
-    ParticleXS(int fn, int dim, double lb, double ub)
-    {
-        for (int i = 0; i < dim; i++)
-        {
+    ParticleXS(int fn, int dim, double lb, double ub) {
+        for (int i = 0; i < dim; i++) {
             x.add(new Random().nextDouble() * (ub - lb) + lb);
             v.add((new Random().nextDouble() * (ub - lb) + lb) * 0.2);
             pBestX.add(new Random().nextDouble() * (ub - lb) + lb);
