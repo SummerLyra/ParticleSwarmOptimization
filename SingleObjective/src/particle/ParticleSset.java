@@ -1,14 +1,14 @@
-package Particle;
+package particle;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import static Particle.Function.*;
+import static particle.Function.*;
 
 /**
  * 适用于多元自变量的粒子集类
  */
-public class ParticleXSSet {
+public class ParticleSset {
     /**
      * 计算用函数编号
      */
@@ -34,29 +34,30 @@ public class ParticleXSSet {
     /**
      * 粒子集
      */
-    private ArrayList<ParticleXS> pSet = new ArrayList<>();
+    private ArrayList<ParticleS> pSet = new ArrayList<>();
 
     /**
      * 初始化粒子集
-     * xi∈[lb,ub)
      *
      * @param fn          计算用函数编号
      * @param particleNum 粒子数量
-     * @param initXS      迭代初始x数组
+     * @param lb          xi的下界
+     * @param ub          xi的上界
+     * @param initS      迭代初始x数组
      */
-    public ParticleXSSet(int fn, int particleNum, double lb, double ub, ArrayList<Double> initXS) {
+    public ParticleSset(int fn, int particleNum, double lb, double ub, ArrayList<Double> initS) {
         funcNum = fn;
-        dim = initXS.size();
+        dim = initS.size();
         lowerBound = lb;
         upperBound = ub;
 
         for (int i = 0; i < dim; i++) {
-            gBestX.add(initXS.get(i));
+            gBestX.add(initS.get(i));
         }
-        gBestFx = calculateXS(funcNum, initXS);
+        gBestFx = calculateS(funcNum, initS);
 
         for (int i = 0; i < particleNum; i++) {
-            pSet.add(new ParticleXS(funcNum, dim, lowerBound, upperBound));
+            pSet.add(new ParticleS(funcNum, dim, lowerBound, upperBound));
         }
     }
 
@@ -64,7 +65,7 @@ public class ParticleXSSet {
      * 计算粒子适应值
      */
     private void evaluate() {
-        for (ParticleXS p : pSet) {
+        for (ParticleS p : pSet) {
             // 限制粒子的位置范围
             for (int i = 0; i < dim; i++) {
                 if (p.x.get(i) < lowerBound) {
@@ -75,7 +76,7 @@ public class ParticleXSSet {
                 }
             }
 
-            p.fx = calculateXS(funcNum, p.x);
+            p.fx = calculateS(funcNum, p.x);
         }
     }
 
@@ -83,7 +84,7 @@ public class ParticleXSSet {
      * 判断粒子价值是否为个体或全局最优
      */
     private void findBetter() {
-        for (ParticleXS p : pSet) {
+        for (ParticleS p : pSet) {
             // 全局最优
             if (p.fx < gBestFx) {
                 for (int i = 0; i < dim; i++) {
@@ -108,7 +109,7 @@ public class ParticleXSSet {
      * 更新粒子速度和位置
      */
     private void update() {
-        for (ParticleXS p : pSet) {
+        for (ParticleS p : pSet) {
             for (int i = 0; i < dim; i++) {
                 double r1 = new Random().nextDouble();
                 double r2 = new Random().nextDouble();

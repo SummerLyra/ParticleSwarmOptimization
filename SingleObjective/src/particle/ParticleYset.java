@@ -1,14 +1,14 @@
-package Particle;
+package particle;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import static Particle.Function.*;
+import static particle.Function.*;
 
 /**
  * 适用于二元自变量的粒子集类
  */
-public class ParticleXYSet {
+public class ParticleYset {
     /**
      * 计算用函数编号
      */
@@ -36,18 +36,21 @@ public class ParticleXYSet {
     /**
      * 粒子集
      */
-    private ArrayList<ParticleXY> pSet = new ArrayList<>();
+    private ArrayList<ParticleY> pSet = new ArrayList<>();
 
     /**
      * 初始化粒子集
-     * x∈[lx,ux), y∈[ly,uy)
      *
      * @param fn          计算用函数编号
      * @param particleNum 粒子数量
+     * @param lx          x的下界
+     * @param ux          x的上界
+     * @param ly          y的下界
+     * @param uy          y的上界
      * @param initX       迭代初始x
      * @param initY       迭代初始y
      */
-    public ParticleXYSet(int fn, int particleNum, double lx, double ux, double ly, double uy, double initX, double initY) {
+    public ParticleYset(int fn, int particleNum, double lx, double ux, double ly, double uy, double initX, double initY) {
         funcNum = fn;
         lowerBoundX = lx;
         upperBoundX = ux;
@@ -56,10 +59,10 @@ public class ParticleXYSet {
 
         gBestX = initX;
         gBestY = initY;
-        gBestFx = calculateXY(funcNum, gBestX, gBestY);
+        gBestFx = calculateY(funcNum, gBestX, gBestY);
 
         for (int i = 0; i < particleNum; i++) {
-            pSet.add(new ParticleXY(funcNum, lowerBoundX, upperBoundX, lowerBoundY, upperBoundY));
+            pSet.add(new ParticleY(funcNum, lowerBoundX, upperBoundX, lowerBoundY, upperBoundY));
         }
     }
 
@@ -67,7 +70,7 @@ public class ParticleXYSet {
      * 计算粒子适应值
      */
     private void evaluate() {
-        for (ParticleXY p : pSet) {
+        for (ParticleY p : pSet) {
             // 限制粒子的位置范围
             if (p.x < lowerBoundX) {
                 p.x = lowerBoundX;
@@ -82,7 +85,7 @@ public class ParticleXYSet {
                 p.y = upperBoundY;
             }
 
-            p.fx = calculateXY(funcNum, p.x, p.y);
+            p.fx = calculateY(funcNum, p.x, p.y);
         }
     }
 
@@ -90,7 +93,7 @@ public class ParticleXYSet {
      * 判断粒子价值是否为个体或全局最优
      */
     private void findBetter() {
-        for (ParticleXY p : pSet) {
+        for (ParticleY p : pSet) {
             // 全局最优
             if (p.fx < gBestFx) {
                 gBestX = p.x;
@@ -114,7 +117,7 @@ public class ParticleXYSet {
      * 更新粒子速度和位置
      */
     private void update() {
-        for (ParticleXY p : pSet) {
+        for (ParticleY p : pSet) {
             double r1 = new Random().nextDouble();
             double r2 = new Random().nextDouble();
             p.vx = W * p.vx + C1 * r1 * (p.pBestX - p.x) + C2 * r2 * (gBestX - p.x);

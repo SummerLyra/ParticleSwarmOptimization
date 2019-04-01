@@ -1,14 +1,14 @@
-package Particle;
+package particle;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import static Particle.Function.*;
+import static particle.Function.*;
 
 /**
  * 适用于多元自变量的粒子类
  */
-class ParticleXS {
+class ParticleS {
     /**
      * 粒子位置
      */
@@ -28,18 +28,19 @@ class ParticleXS {
 
     /**
      * 初始化粒子
-     * xi∈[lb,ub)
      *
      * @param fn  计算用函数编号
      * @param dim 计算维度
+     * @param lb  xi的下界
+     * @param ub  xi的上界
      */
-    ParticleXS(int fn, int dim, double lb, double ub) {
+    ParticleS(int fn, int dim, double lb, double ub) {
         for (int i = 0; i < dim; i++) {
             x.add(new Random().nextDouble() * (ub - lb) + lb);
             v.add((new Random().nextDouble() * (ub - lb) + lb) * 0.2);
             pBestX.add(new Random().nextDouble() * (ub - lb) + lb);
         }
-        fx = calculateXS(fn, x);
-        pBestFx = calculateXS(fn, pBestX);
+        fx = calculateS(fn, x);
+        pBestFx = calculateS(fn, pBestX);
     }
 }

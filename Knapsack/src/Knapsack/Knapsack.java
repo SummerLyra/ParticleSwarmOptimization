@@ -1,10 +1,9 @@
-package Knapsack;
+package knapsack;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 class Knapsack {
-
     /**
      * 背包总重量
      */

@@ -1,4 +1,4 @@
-package Particle;
+package particle;
 
 import java.util.ArrayList;
 
@@ -146,7 +146,7 @@ class Function {
     /**
      * for function 1, 3, 4, 7
      */
-    static double calculateXS(int funcNum, ArrayList<Double> x) {
+    static double calculateS(int funcNum, ArrayList<Double> x) {
         switch (funcNum) {
             case 1:
                 return rastrigin(x);
@@ -164,7 +164,7 @@ class Function {
     /**
      * for function 2, 5, 6, 8, 9, 10
      */
-    static double calculateXY(int funcNum, double x, double y) {
+    static double calculateY(int funcNum, double x, double y) {
         switch (funcNum) {
             case 2:
                 return ackley(x, y);

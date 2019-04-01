@@ -1,13 +1,13 @@
-package Particle;
+package particle;
 
 import java.util.Random;
 
-import static Particle.Function.*;
+import static particle.Function.*;
 
 /**
  * 适用于二元自变量的粒子类
  */
-class ParticleXY {
+class ParticleY {
     /**
      * 粒子位置
      */
@@ -30,20 +30,23 @@ class ParticleXY {
 
     /**
      * 初始化粒子
-     * x∈[lx,ux), y∈[ly,uy)
      *
      * @param fn 计算用函数编号
+     * @param lx x的下界
+     * @param ux x的上界
+     * @param ly y的下界
+     * @param uy y的上界
      */
-    ParticleXY(int fn, double lx, double ux, double ly, double uy) {
+    ParticleY(int fn, double lx, double ux, double ly, double uy) {
         x = new Random().nextDouble() * (ux - lx) + lx;
         y = new Random().nextDouble() * (uy - ly) + ly;
-        fx = calculateXY(fn, x, y);
+        fx = calculateY(fn, x, y);
 
         vx = (new Random().nextDouble() * (ux - lx) + lx) * 0.2;
         vy = (new Random().nextDouble() * (uy - ly) + ly) * 0.2;
 
         pBestX = new Random().nextDouble() * (ux - lx) + lx;
         pBestY = new Random().nextDouble() * (uy - ly) + ly;
-        pBestFx = calculateXY(fn, pBestX, pBestY);
+        pBestFx = calculateY(fn, pBestX, pBestY);
     }
 }

@@ -1,15 +1,16 @@
-import Particle.*;
+import particle.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        double initX = 0.0, initY = 0.0;
-        ArrayList<Double> initXS = new ArrayList<>();
-        ParticleXYSet pxys;
-        ParticleXSSet pxss;
+    private static double initX = 0.0;
+    private static double initY = 0.0;
+    private static ArrayList<Double> initS = new ArrayList<>();
+    private static ParticleYset pys;
+    private static ParticleSset pss;
 
+    private static int chooseFunc() {
         System.out.println("Please choose a function to calculate:");
         System.out.println("1  Rastrigin function");
         System.out.println("2  Ackley function");
@@ -25,16 +26,20 @@ public class Main {
         if (funcNum < 1 | funcNum > 10) {
             System.exit(-1);
         }
+        return funcNum;
+    }
 
-        //粒子集大小
+    private static void calcFunc(int funcNum) {
+        // 粒子集大小
         System.out.println("Please input the quantity of particles:");
         int particleNum = new Scanner(System.in).nextInt();
 
-        //迭代次数
+        // 迭代次数
         System.out.println("Please input the times of iteration:");
         int iterTime = new Scanner(System.in).nextInt();
 
-        //for function 1, 3, 4, 7
+        // 迭代初始值
+        // for function 1, 3, 4, 7
         if (funcNum == 1 | funcNum == 3 | funcNum == 4 | funcNum == 7) {
             int dim = 10;
             //for function 7
@@ -46,10 +51,10 @@ public class Main {
             System.out.println("Please input x0:");
             double x0 = new Scanner(System.in).nextDouble();
             for (int i = 0; i < dim; i++) {
-                initXS.add(x0);
+                initS.add(x0);
             }
         }
-        //for function 2, 5, 6, 8, 9, 10
+        // for function 2, 5, 6, 8, 9, 10
         else {
             System.out.println("Please input x0:");
             initX = new Scanner(System.in).nextDouble();
@@ -60,47 +65,52 @@ public class Main {
 
         switch (funcNum) {
             case 1:
-                pxss = new ParticleXSSet(1, particleNum, -5.12, 5.12, initXS);
-                pxss.iterate(iterTime);
+                pss = new ParticleSset(1, particleNum, -5.12, 5.12, initS);
+                pss.iterate(iterTime);
                 break;
             case 2:
-                pxys = new ParticleXYSet(2, particleNum, -5.0, 5.0, -5.0, 5.0, initX, initY);
-                pxys.iterate(iterTime);
+                pys = new ParticleYset(2, particleNum, -5.0, 5.0, -5.0, 5.0, initX, initY);
+                pys.iterate(iterTime);
                 break;
             case 3:
-                pxss = new ParticleXSSet(3, particleNum, -100.0, 100.0, initXS);
-                pxss.iterate(iterTime);
+                pss = new ParticleSset(3, particleNum, -100.0, 100.0, initS);
+                pss.iterate(iterTime);
                 break;
             case 4:
-                pxss = new ParticleXSSet(4, particleNum, -30.0, 30.0, initXS);
-                pxss.iterate(iterTime);
+                pss = new ParticleSset(4, particleNum, -30.0, 30.0, initS);
+                pss.iterate(iterTime);
                 break;
             case 5:
-                pxys = new ParticleXYSet(5, particleNum, -4.5, 4.5, -4.5, 4.5, initX, initY);
-                pxys.iterate(iterTime);
+                pys = new ParticleYset(5, particleNum, -4.5, 4.5, -4.5, 4.5, initX, initY);
+                pys.iterate(iterTime);
                 break;
             case 6:
-                pxys = new ParticleXYSet(6, particleNum, -100.0, 100.0, -100.0, 100.0, initX, initY);
-                pxys.iterate(iterTime);
+                pys = new ParticleYset(6, particleNum, -100.0, 100.0, -100.0, 100.0, initX, initY);
+                pys.iterate(iterTime);
                 break;
             case 7:
-                pxss = new ParticleXSSet(7, particleNum, -5.0, 5.0, initXS);
-                pxss.iterate(iterTime);
+                pss = new ParticleSset(7, particleNum, -5.0, 5.0, initS);
+                pss.iterate(iterTime);
                 break;
             case 8:
-                pxys = new ParticleXYSet(8, particleNum, -15.0, -5.0, -3.0, 3.0, initX, initY);
-                pxys.iterate(iterTime);
+                pys = new ParticleYset(8, particleNum, -15.0, -5.0, -3.0, 3.0, initX, initY);
+                pys.iterate(iterTime);
                 break;
             case 9:
-                pxys = new ParticleXYSet(9, particleNum, -5.0, 5.0, -5.0, 5.0, initX, initY);
-                pxys.iterate(iterTime);
+                pys = new ParticleYset(9, particleNum, -5.0, 5.0, -5.0, 5.0, initX, initY);
+                pys.iterate(iterTime);
                 break;
             case 10:
-                pxys = new ParticleXYSet(10, particleNum, -10.0, 10.0, -10.0, 10.0, initX, initY);
-                pxys.iterate(iterTime);
+                pys = new ParticleYset(10, particleNum, -10.0, 10.0, -10.0, 10.0, initX, initY);
+                pys.iterate(iterTime);
                 break;
             default:
                 System.exit(-1);
         }
+    }
+
+    public static void main(String[] args) {
+        int funcNum = chooseFunc();
+        calcFunc(funcNum);
     }
 }

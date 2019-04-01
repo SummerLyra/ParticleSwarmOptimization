@@ -1,4 +1,4 @@
-package Knapsack;
+package knapsack;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,7 +10,7 @@ public class KnapsackSet {
     /**
      * 惯性权重因子
      */
-    private final double W = 1.0;
+    private final double W = 0.5;
 
     /**
      * 个体认知常数

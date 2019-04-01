@@ -1,4 +1,4 @@
-import Knapsack.KnapsackSet;
+import knapsack.KnapsackSet;
 
 import java.util.Scanner;
 
